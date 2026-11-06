@@ -1,0 +1,38 @@
+# The tests on Linux, Windows and macOS, with the oldest MATLAB release
+# tested here (R2024b) and the latest. No private data: the tests simulate
+# the recordings they need. The toolboxes are fetched at their validated
+# versions (tools/fetch_toolboxes.sh --static: FieldTrip, Brainstorm,
+# restingIAF) into ../Toolboxes, where
+# setup_toolboxes looks for them. MathWorks' actions need no licence for a
+# public repository.
+name: tests
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  matlab:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        release: [R2024b, latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 120
+    steps:
+      - name: Line endings as committed (Windows; the toolboxes fetched by git too)
+        run: git config --global core.autocrlf false
+      - uses: actions/checkout@v4
+        with:
+          path: pipeline
+      - name: Toolboxes at their validated versions
+        shell: bash
+        run: cd pipeline && bash tools/fetch_toolboxes.sh ../Toolboxes --static
+      - uses: matlab-actions/setup-matlab@v2
+        with:
+          release: ${{ matrix.release }}
+          products: Signal_Processing_Toolbox Statistics_and_Machine_Learning_Toolbox
+      - name: Tests
+        uses: matlab-actions/run-command@v2
+        with:
+          command: cd('pipeline'); results = runtests('tests'); disp(table(results)); assertSuccess(results);

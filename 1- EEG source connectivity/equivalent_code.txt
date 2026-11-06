@@ -1,0 +1,37 @@
+% Earlier stage 1 code whose outputs are the same as the current code's (read by settings_key).
+% Each row: <current code> <earlier code> <note>, codes as the second output
+% of code_fingerprint(S, 'stage1') (the code's files, without the toolbox
+% versions, which stay part of every key). While the stage 1 code is
+% <current>, outputs made by <earlier> with the same settings, toolboxes and
+% recording are up to date: stage 1 skips them and stages 2-3 read them.
+% Add a row only for a change of stage 1 that leaves what it computes for
+% earlier settings unchanged, after checking that (both fingerprints: before
+% and after the change). Any later change of the stage 1 code changes
+% <current>, so the rows no longer apply: list the earlier codes again
+% for the new one when that change also leaves the outputs unchanged.
+e61c2cfc72156e0e92de4fb0451cb202 f2e84a93052a2c3b867ec4092c90706b 29 Oct 2026: stage 1 of 4bb02f1-1ab2a92; since then 'dwpli' added (f354579) and outputs of earlier code accepted; the measures of earlier settings are computed by the same lines (OpenNeuro recording: cmats and static cmats of plv, wpli, aec isequaln)
+e61c2cfc72156e0e92de4fb0451cb202 33f4b824c24e3e4c92de4fb0451cb202 29 Oct 2026: stage 1 of f354579-2bcbcd3 (with 'dwpli'); since then only outputs of earlier code accepted (run_pipeline)
+cf2a3f89d3b9028992de4fb0451cb202 e61c2cfc72156e0e92de4fb0451cb202 3 Nov 2026: stage 1 of f354579-9b21889; since then recordings also found in subfolders (get_subs) and warnings for fewer than 32 channels or a very noisy channel, nothing computed differently (OpenNeuro sub-1448, four bands: cmats and static cmats of plv, wpli, aec isequaln)
+cf2a3f89d3b9028992de4fb0451cb202 f2e84a93052a2c3b867ec4092c90706b 3 Nov 2026: as above, for the outputs of 4bb02f1-1ab2a92 already accepted (29 Oct)
+cf2a3f89d3b9028992de4fb0451cb202 33f4b824c24e3e4c92de4fb0451cb202 3 Nov 2026: as above, for the outputs of f354579-2bcbcd3 already accepted (29 Oct)
+58b85d3aef3927761db6aa6e9b016dd4 e7c77b6020f08f041db6aa6e9b016dd4 4 Nov 2026: stage 1 of edde89a; since then only the text of an error message (get_ftHeadmodel_and_ftLeadfield: the README section on OpenMEEG), nothing computed differently
+0bcef349c53846401db6aa6e9b016dd4 58b85d3aef3927761db6aa6e9b016dd4 4 Nov 2026: stage 1 of 71d7a86; since then S.scout_function (get_scouts_timeseries, run_pipeline): with the mean, its default, the same lines compute the same region time series (checked on OpenNeuro recordings: identical matrices)
+0bcef349c53846401db6aa6e9b016dd4 e7c77b6020f08f041db6aa6e9b016dd4 4 Nov 2026: as above, for the outputs of edde89a already accepted (4 Nov)
+c592a059b720754d1db6aa6e9b016dd4 0bcef349c53846401db6aa6e9b016dd4 4 Nov 2026: stage 1 of 6ebf912-4a9b921; since then the data rank in the summary row (run_pipeline: data_rank, the reading of the channels moved into channels_used; run_all prints its range), nothing computed differently (OpenNeuro sub-1448, four bands: cmats and static cmats isequaln); a reused output gets its rank once (the recording is read, nothing recomputed)
+c592a059b720754d1db6aa6e9b016dd4 58b85d3aef3927761db6aa6e9b016dd4 4 Nov 2026: as above, for the outputs of 71d7a86 already accepted (4 Nov)
+c592a059b720754d1db6aa6e9b016dd4 e7c77b6020f08f041db6aa6e9b016dd4 4 Nov 2026: as above, for the outputs of edde89a already accepted (4 Nov)
+36853a3624cc703b446f56bb372b2493 c592a059b720754d1db6aa6e9b016dd4 4 Nov 2026: stage 1 of 3a7413e (the data rank); since then other head models (S.anatomy: get_anatomy, get_atlas, run_pipeline, run_all, get_scouts_timeseries, get_ftHeadmodel_and_ftLeadfield, settings_key): with the shipped ICBM152, the default, the same lines compute the same outputs (OpenNeuro sub-1448, four bands: cmats and static cmats isequaln); outputs made with another head have other keys
+36853a3624cc703b446f56bb372b2493 0bcef349c53846401db6aa6e9b016dd4 4 Nov 2026: as above, for the outputs of 6ebf912-4a9b921 already accepted (4 Nov)
+36853a3624cc703b446f56bb372b2493 58b85d3aef3927761db6aa6e9b016dd4 4 Nov 2026: as above, for the outputs of 71d7a86 already accepted (4 Nov)
+36853a3624cc703b446f56bb372b2493 e7c77b6020f08f041db6aa6e9b016dd4 4 Nov 2026: as above, for the outputs of edde89a already accepted (4 Nov)
+4a28cd094d35cd1f446f56bb372b2493 36853a3624cc703b446f56bb372b2493 4 Nov 2026: stage 1 of a6c9da4-3b3ae87 (other head models); since then only a comment (run_pipeline: the folder v2_Claude renamed v_crosscheck), nothing computed differently
+4a28cd094d35cd1f446f56bb372b2493 c592a059b720754d1db6aa6e9b016dd4 4 Nov 2026: as above, for the outputs of earlier code already accepted (4 Nov)
+4a28cd094d35cd1f446f56bb372b2493 0bcef349c53846401db6aa6e9b016dd4 4 Nov 2026: as above, for the outputs of earlier code already accepted (4 Nov)
+4a28cd094d35cd1f446f56bb372b2493 58b85d3aef3927761db6aa6e9b016dd4 4 Nov 2026: as above, for the outputs of earlier code already accepted (4 Nov)
+4a28cd094d35cd1f446f56bb372b2493 e7c77b6020f08f041db6aa6e9b016dd4 4 Nov 2026: as above, for the outputs of earlier code already accepted (4 Nov)
+052ace853bfbba31fe30238733748cb0 de06957a5633c2f3fe30238733748cb0 5 Nov 2026: stage 1 of 5bcfa6c-fde4e87; since then only comments (bandpass_pieces: the development tools removed in 3a8ad47 no longer named), nothing computed differently
+d8462ee578626644fe30238733748cb0 052ace853bfbba31fe30238733748cb0 6 Nov 2026: the window mean in a static-only run (S.static_matrices); with earlier settings the same outputs (one simulated recording, with and without windows: every variable isequaln), plus static_halves_window and info.no_windows when there are windows; a measure with no window in any piece has a zero diagonal in its window mean (was NaN)
+d8462ee578626644fe30238733748cb0 de06957a5633c2f3fe30238733748cb0 6 Nov 2026: as above, for the outputs of earlier code already accepted (5 Nov)
+537770582e0b12f9fe30238733748cb0 052ace853bfbba31fe30238733748cb0 6 Nov 2026: windows of one measure (S.measure_windows) and the window mean by default (check_settings); without S.measure_windows the same outputs (one simulated recording, with and without windows: every variable isequaln, info the same but for the anatomy folder's path)
+537770582e0b12f9fe30238733748cb0 de06957a5633c2f3fe30238733748cb0 6 Nov 2026: as above, for the outputs of earlier code already accepted (5 Nov)
+537770582e0b12f9fe30238733748cb0 d8462ee578626644fe30238733748cb0 6 Nov 2026: as above, for the outputs of the window mean in a static-only run (286b9a5)

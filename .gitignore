@@ -1,0 +1,14 @@
+# Outputs and local runs stay out of the shared folder
+results/
+results_*/
+simulated/
+*.asv
+.DS_Store
+# Python byte code
+__pycache__/
+# FieldTrip head model, rebuilt when a leadfield is recomputed with
+# FieldTrip's OpenMEEG route (177 MB, over GitHub's 100 MB file limit)
+1- EEG source connectivity/inputs/ftHeadmodel_EEGLab_61.mat
+# Leadfields computed for a new montage (computed on first use)
+1- EEG source connectivity/inputs/ftLeadfield_*_normal.mat
+!1- EEG source connectivity/inputs/ftLeadfield_ASA_10-05_343_normal.mat

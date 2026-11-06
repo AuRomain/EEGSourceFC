@@ -1,0 +1,11 @@
+# Text files keep LF line endings on every system, also on Windows
+# checkouts: tests/test_same_code_as_v_dynamic.m and the toolbox check compare
+# files byte by byte (SHA-256)
+* text=auto eol=lf
+*.mat binary
+*.png binary
+*.xlsx binary
+# NBS 1.2 as distributed (NBSstats.m has CRLF line endings): unchanged bytes
+3-[[:space:]]Analysis/fun/NBS/** -text
+# Brainstorm fix applied by tools/fetch_toolboxes.sh: CRLF lines, as in Brainstorm's files
+tools/*.patch -text

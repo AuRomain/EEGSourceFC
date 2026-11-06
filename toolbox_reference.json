@@ -1,0 +1,26 @@
+{
+  "fieldtrip": "989785df7a7536c1",
+  "brainstorm": "69b21efffbd5a35f",
+  "modkmeans": "9fa407a459156421",
+  "cvik": "3b1827e7fc6f461c",
+  "bct": "aed1485457d1fdec",
+  "nbs": "6c877a8cb053ee5d",
+  "restingiaf": "05c45c7178753f8e",
+  "recorded": "2026-10-21",
+  "equivalent": {
+    "modkmeans": [
+      {
+        "fingerprint": "cb7e7b110b7ce135",
+        "version": "modkmeans.m and calc_fitmeas.m of folder MST1.0, commit a46ddd9459d2e2f8a2a7064841dcacb45766b329 (tools/fetch_toolboxes.sh): modkmeans.m identical; the validated calc_fitmeas.m adds a guard for empty clusters and an unused polarity-invariant measure, and returns the same outputs",
+        "recorded": "2026-11-03"
+      }
+    ],
+    "cvik": [
+      {
+        "fingerprint": "9722a9bc7a5bcca9",
+        "version": "commit 22382ec1dd8e12025868a0b00d9e9a3a99fe6b4c (tools/fetch_toolboxes.sh): the validated copy's 8 index functions take the number of clusters as a third argument; cvi_index.m calls either version and gives the same values (identical on test data; the validated copy's -Inf/+Inf for an empty cluster)",
+        "recorded": "2026-11-03"
+      }
+    ]
+  }
+}
