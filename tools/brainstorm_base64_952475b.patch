@@ -1,0 +1,178 @@
+Brainstorm commit 952475b (13 October 2026, brainstorm-tools/brainstorm3 #942: "Java: Replace
+removed sun.misc Base64 classes with java.util.Base64"), the same changes on the pinned
+Brainstorm 3.250107 (commit 69bbf53), whose bst_report.m differs around them. Without it,
+Brainstorm cannot read GIfTI files (CAT12's surfaces) with Java 9 or later. Applied by
+tools/fetch_toolboxes.sh:  patch -d <Toolboxes>/brainstorm3 -p1 --binary < this file
+(CRLF line endings, as in Brainstorm's repository: keep them).
+
+diff -ruN a/toolbox/io/import_label.m b/toolbox/io/import_label.m
+--- a/toolbox/io/import_label.m
++++ b/toolbox/io/import_label.m
+@@ -24,8 +24,6 @@
+ %
+ % Authors: Francois Tadel, 2012-2022
+ 
+-import sun.misc.BASE64Decoder;
+-
+ 
+ %% ===== GET FILES =====
+ sAllAtlas = repmat(db_template('Atlas'), 0);
+diff -ruN a/toolbox/io/in_gii.m b/toolbox/io/in_gii.m
+--- a/toolbox/io/in_gii.m
++++ b/toolbox/io/in_gii.m
+@@ -21,8 +21,6 @@
+ %
+ % Authors: Francois Tadel, 2017
+ 
+-import sun.misc.BASE64Decoder;
+-
+ % Read XML file
+ sXml = in_xml(GiiFile);
+ 
+@@ -56,8 +54,7 @@
+             
+         case {'Base64Binary', 'GZipBase64Binary'}
+             % Base64 decoding
+-            decoder = BASE64Decoder();
+-            Values{iArray} = decoder.decodeBuffer(sXml.GIFTI.DataArray(iArray).Data.text);
++            Values{iArray} = bst_base64('decode', sXml.GIFTI.DataArray(iArray).Data.text);
+             % Unpack gzipped stream
+             if strcmpi(sXml.GIFTI.DataArray(iArray).Encoding, 'GZipBase64Binary')
+                 Values{iArray} = dunzip(Values{iArray});
+diff -ruN a/toolbox/io/in_tess_gii.m b/toolbox/io/in_tess_gii.m
+--- a/toolbox/io/in_tess_gii.m
++++ b/toolbox/io/in_tess_gii.m
+@@ -30,8 +30,6 @@
+ %
+ % Authors: Francois Tadel, 2012-2017
+ 
+-import sun.misc.BASE64Decoder;
+-
+ % Read GII file
+ [sXml, Values] = in_gii(TessFile);
+ % Initialize matrices
+diff -ruN a/toolbox/io/out_tess_gii.m b/toolbox/io/out_tess_gii.m
+--- a/toolbox/io/out_tess_gii.m
++++ b/toolbox/io/out_tess_gii.m
+@@ -61,18 +61,15 @@
+ end
+ 
+ % ===== ENCODE DATA =====
+-import sun.misc.BASE64Encoder;
+-% Initialize Base64 encoder
+-encoder = BASE64Encoder();
+ % Encode vertices: millimeters
+ Vertices = single(TessMat.Vertices' .* 1000);
+ Vertices = typecast(Vertices(:), 'uint8');
+-Vertices = char(encoder.encodeBuffer(Vertices));
++Vertices = bst_base64('encode', Vertices);
+ Vertices((Vertices == 10) | (Vertices == 13)) = [];
+ % Encode faces: 0-based array
+ Faces = int32(TessMat.Faces' - 1);
+ Faces = typecast(Faces(:), 'uint8');
+-Faces = char(encoder.encodeBuffer(Faces));
++Faces = bst_base64('encode', Faces);
+ Faces((Faces == 10) | (Faces == 13)) = [];
+  
+ % ===== CREATE XML STRING =====   
+diff -ruN a/toolbox/misc/bst_base64.m b/toolbox/misc/bst_base64.m
+--- a/toolbox/misc/bst_base64.m
++++ b/toolbox/misc/bst_base64.m
+@@ -0,0 +1,65 @@
++function y = bst_base64(action, x)
++% BST_BASE64: Encode or decode Base64 data, independently from the Java version.
++%
++% USAGE:  y = bst_base64('encode', x)      % x : char vector,   y : int8 column vector
++%         y = bst_base64('decode', x)      % x : int8 vector,   y : char row vector
++%
++% @=============================================================================
++% This function is part of the Brainstorm software:
++% https://neuroimage.usc.edu/brainstorm
++% 
++% Copyright (c) University of Southern California & McGill University
++% This software is distributed under the terms of the GNU General Public License
++% as published by the Free Software Foundation. Further details on the GPLv3
++% license can be found at http://www.gnu.org/copyleft/gpl.html.
++% 
++% FOR RESEARCH PURPOSES ONLY. THE SOFTWARE IS PROVIDED "AS IS," AND THE
++% UNIVERSITY OF SOUTHERN CALIFORNIA AND ITS COLLABORATORS DO NOT MAKE ANY
++% WARRANTY, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
++% MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, NOR DO THEY ASSUME ANY
++% LIABILITY OR RESPONSIBILITY FOR THE USE OF THIS SOFTWARE.
++%
++% For more information type "brainstorm license" at command prompt.
++% =============================================================================@
++%
++% Authors: Bhushan Thombre, 2026
++%          Raymundo Cassani, 2026
++
++y = [];
++
++% Note: Using `eval` allows using `import` inside an IF statement,
++%       otherwise it runs before the statement. See `import` help
++[tEncoder, dEncoder] = methodsview('sun.misc.BASE64Encoder', 'noui');
++[tDecoder, dDecoder] = methodsview('sun.misc.BASE64Decoder', 'noui');
++
++% API JDK > 8
++if isempty(tEncoder) || isempty(dEncoder) || isempty(tDecoder) || isempty(dDecoder)
++    % sun.misc.BASE64Decoder and sun.misc.BASE64Encoder have been removed in JDK 9;
++    % instead, use java.util.Base64
++    % https://docs.oracle.com/javase/9/migrate/toc.htm#JSMIG-GUID-B96BD00F-12A4-493A-9907-2FFE8DA6748C
++    eval('import java.util.Base64.getDecoder');
++    eval('import java.util.Base64.getEncoder');
++    encoder = getEncoder();
++    decoder = getDecoder();
++    encode  = @encoder.encode;       % Returns int8 with a trailing '\n'
++    decode  = @decoder.decode;       % Returns int8
++% API JDK = 8
++else
++    eval('import sun.misc.BASE64Decoder');
++    eval('import sun.misc.BASE64Encoder');
++    decoder = BASE64Decoder();
++    encoder = BASE64Encoder();
++    encode  = @encoder.encodeBuffer; % Returns Java string
++    decode  = @decoder.decodeBuffer; % Returns int8
++end
++
++switch lower(action)
++    case 'encode'
++        % To char array without trailing '\n'
++        y = strtrim(char(encode(x)));
++        y = y(:)';
++    case 'decode'
++        y = decode(x);
++    otherwise
++        error(['Unsupported action: ' action]);
++end
+diff -ruN a/toolbox/process/bst_report.m b/toolbox/process/bst_report.m
+--- a/toolbox/process/bst_report.m
++++ b/toolbox/process/bst_report.m
+@@ -1000,8 +1000,6 @@
+     % ===== IMAGES =====
+     if ~isempty(iImages)
+         html = [html '<H2>Snapshots</H2>' 10];
+-        % Create Base64 encoder
+-        encoder = sun.misc.BASE64Encoder();
+         % Loop on all the images
+         for i = 1:length(iImages)
+             iMsg      = iImages(i);
+@@ -1022,8 +1020,8 @@
+             % Convert image to PNG
+             jByteStream = java.io.ByteArrayOutputStream();
+             javax.imageio.ImageIO.write(jImage, 'png', jByteStream);
+-            % Encode PNG image in Base64
+-            jStringImage = encoder.encode(jByteStream.toByteArray());
++            % Encode PNG image in Base64 char array
++            charImage = bst_base64('encode', jByteStream.toByteArray());
+             % Display image in HTML
+             html = [html, Comment];
+             if ~isempty(FileNames)
+@@ -1031,7 +1029,7 @@
+             else
+                 html = [html, '<BR>'];
+             end
+-            html = [html, '<IMG src="data:image/png;base64,' char(jStringImage) '" /><BR><BR>'];
++            html = [html, '<IMG src="data:image/png;base64,' charImage '" /><BR><BR>'];
+         end
+     end
+     

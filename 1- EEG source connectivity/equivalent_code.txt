@@ -1,0 +1,29 @@
+% Earlier stage 1 code whose outputs are the same as the current code's (read by settings_key).
+% Each row: <current code> <earlier code> <note>, codes as the second output
+% of code_fingerprint(S, 'stage1') (the code's files, without the toolbox
+% versions, which stay part of every key). While the stage 1 code is
+% <current>, outputs made by <earlier> with the same settings, toolboxes and
+% recording are up to date: stage 1 skips them and stages 2-3 read them.
+% Add a row only for a change of stage 1 that leaves what it computes for
+% earlier settings unchanged, after checking that (both fingerprints: before
+% and after the change). Any later change of the stage 1 code changes
+% <current>, so the rows no longer apply: list the earlier codes again
+% for the new one when that change also leaves the outputs unchanged.
+db9863b6c11b4f606ac91251c23a2054 fe1b573d0b9b16206ac91251c23a2054 the same code with other comments
+db9863b6c11b4f606ac91251c23a2054 363b6e9b5db7df2b6ac91251c23a2054 earlier code with the same outputs for the same settings
+db9863b6c11b4f606ac91251c23a2054 170f891402b4f8a368a68b1997cb81f5 earlier code with the same outputs for the same settings
+db9863b6c11b4f606ac91251c23a2054 c7c7f790e7799b6f68a68b1997cb81f5 earlier code with the same outputs for the same settings
+db9863b6c11b4f606ac91251c23a2054 526a3b218578506468a68b1997cb81f5 earlier code with the same outputs for the same settings
+db9863b6c11b4f606ac91251c23a2054 db35d9f5e8c27de868a68b1997cb81f5 earlier code with the same outputs for the same settings
+db9863b6c11b4f606ac91251c23a2054 b9201dc46f17cb3268a68b1997cb81f5 earlier code with the same outputs for the same settings
+db9863b6c11b4f606ac91251c23a2054 63deed457177b58268a68b1997cb81f5 earlier code with the same outputs for the same settings
+db9863b6c11b4f606ac91251c23a2054 8aeca20eb308a25068a68b1997cb81f5 earlier code with the same outputs for the same settings
+db9863b6c11b4f606ac91251c23a2054 70ccf6f047bd38d268a68b1997cb81f5 earlier code with the same outputs for the same settings
+db9863b6c11b4f606ac91251c23a2054 0b911ce07dacfb2868a68b1997cb81f5 earlier code with the same outputs for the same settings
+db9863b6c11b4f606ac91251c23a2054 dc2a8b1f4dc67856bd13d00d1bd1e858 earlier code with the same outputs for the same settings
+db9863b6c11b4f606ac91251c23a2054 d16e0983083fb0bcbd13d00d1bd1e858 earlier code with the same outputs for the same settings
+db9863b6c11b4f606ac91251c23a2054 1f6583f2a56ea63fbd13d00d1bd1e858 earlier code with the same outputs for the same settings
+db9863b6c11b4f606ac91251c23a2054 537770582e0b12f9fe30238733748cb0 earlier code with the same outputs for the same settings
+db9863b6c11b4f606ac91251c23a2054 052ace853bfbba31fe30238733748cb0 earlier code with the same outputs for the same settings
+db9863b6c11b4f606ac91251c23a2054 de06957a5633c2f3fe30238733748cb0 earlier code with the same outputs for the same settings
+db9863b6c11b4f606ac91251c23a2054 d8462ee578626644fe30238733748cb0 earlier code with the same outputs for the same settings

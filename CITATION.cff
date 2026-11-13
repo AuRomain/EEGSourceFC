@@ -1,0 +1,224 @@
+# How to cite EEGSourceFC (Citation File Format, https://citation-file-format.github.io;
+# GitHub shows it as "Cite this repository").
+# The references are the code this pipeline was built from and the toolboxes
+# it calls; docs/references.md adds the methods.
+cff-version: 1.2.0
+message: >-
+  If you use EEGSourceFC, please cite it as below, together with the code
+  it was built from and the toolboxes and methods of the parts you used
+  (docs/references.md).
+type: software
+title: "EEGSourceFC: static EEG source connectivity and power spectra"
+abstract: >-
+  A MATLAB pipeline for resting-state EEG. From cleaned scalp recordings it
+  estimates the activity of cortical regions (eLORETA, LCMV or wMNE on the
+  ICBM152 template head), measures the connectivity between every pair of
+  regions as the mean of short windows or over the whole recording (wPLI,
+  orthogonalised AEC and other measures) and the power spectra of every channel and region, and compares
+  groups or correlates with clinical scores on the edges (network-based
+  statistic), the graph metrics, the network blocks and band power, with
+  permutation statistics.
+authors:
+  - family-names: "Aubonnet"
+    given-names: "Romain"
+    orcid: "https://orcid.org/0000-0002-5395-775X"
+    affiliation: "Laboratory of Psychophysiology and Cognitive Neuroscience, Department of Systems Medicine, University of Rome Tor Vergata, Rome, Italy"
+version: "1.3.0"
+date-released: "2026-11-13"
+license: GPL-3.0-or-later
+repository-code: "https://github.com/PsyCoNeLab-HUB/EEGSourceFC"
+keywords:
+  - EEG
+  - source connectivity
+  - functional connectivity
+  - power spectrum
+  - network-based statistic
+  - resting state
+  - MATLAB
+references:
+  - type: software
+    title: "var-EEG-FC"
+    authors:
+      - family-names: "Allouch"
+        given-names: "Sahar"
+    repository-code: "https://github.com/sahar-allouch/var-EEG-FC"
+    notes: "Stage 1 (inverse solutions, connectivity measures) was built from this code"
+  - type: software
+    title: "dynCogPD"
+    authors:
+      - family-names: "Tabbal"
+        given-names: "Judie"
+    repository-code: "https://github.com/judytabbal/dynCogPD"
+    notes: "The main script of stage 1 was built from this code (and from its fork https://github.com/jduprez/dynCogPD, Joan Duprez)"
+  - type: article
+    authors:
+      - family-names: "Allouch"
+        given-names: "Sahar"
+      - family-names: "Kabbara"
+        given-names: "Aya"
+      - family-names: "Duprez"
+        given-names: "Joan"
+      - family-names: "Paban"
+        given-names: "Véronique"
+      - family-names: "Khalil"
+        given-names: "Mohamad"
+      - family-names: "Modolo"
+        given-names: "Julien"
+      - family-names: "Hassan"
+        given-names: "Mahmoud"
+    title: "Effect of analytical variability in estimating EEG-based functional connectivity"
+    journal: "bioRxiv"
+    year: 2023
+    doi: "10.1101/2023.08.17.553675"
+    notes: "The paper of var-EEG-FC (https://github.com/sahar-allouch/var-EEG-FC), from which stage 1 was built"
+  - type: article
+    authors:
+      - family-names: "Duprez"
+        given-names: "Joan"
+      - family-names: "Tabbal"
+        given-names: "Judie"
+      - family-names: "Hassan"
+        given-names: "Mahmoud"
+      - family-names: "Modolo"
+        given-names: "Julien"
+      - family-names: "Kabbara"
+        given-names: "Aya"
+      - family-names: "Mheich"
+        given-names: "Ahmad"
+      - family-names: "Drapier"
+        given-names: "Sophie"
+      - family-names: "Vérin"
+        given-names: "Marc"
+      - family-names: "Sauleau"
+        given-names: "Paul"
+      - family-names: "Wendling"
+        given-names: "Fabrice"
+      - family-names: "Benquet"
+        given-names: "Pascal"
+      - family-names: "Houvenaghel"
+        given-names: "Jean-François"
+    title: "Spatio-temporal dynamics of large-scale electrophysiological networks during cognitive action control in healthy controls and Parkinson's disease patients"
+    journal: "NeuroImage"
+    year: 2022
+    volume: 258
+    start: "119331"
+    doi: "10.1016/j.neuroimage.2022.119331"
+    notes: "The paper of dynCogPD (https://github.com/judytabbal/dynCogPD), from which the main script of stage 1 was built"
+  - type: article
+    authors:
+      - family-names: "Oostenveld"
+        given-names: "Robert"
+      - family-names: "Fries"
+        given-names: "Pascal"
+      - family-names: "Maris"
+        given-names: "Eric"
+      - family-names: "Schoffelen"
+        given-names: "Jan-Mathijs"
+    title: "FieldTrip: Open source software for advanced analysis of MEG, EEG, and invasive electrophysiological data"
+    journal: "Computational Intelligence and Neuroscience"
+    year: 2011
+    volume: 2011
+    start: "156869"
+    doi: "10.1155/2011/156869"
+    notes: "FieldTrip: reading the files, eLORETA, LCMV, the debiased wPLI"
+  - type: article
+    authors:
+      - family-names: "Tadel"
+        given-names: "François"
+      - family-names: "Baillet"
+        given-names: "Sylvain"
+      - family-names: "Mosher"
+        given-names: "John C"
+      - family-names: "Pantazis"
+        given-names: "Dimitrios"
+      - family-names: "Leahy"
+        given-names: "Richard M"
+    title: "Brainstorm: a user-friendly application for MEG/EEG analysis"
+    journal: "Computational Intelligence and Neuroscience"
+    year: 2011
+    volume: 2011
+    start: "879716"
+    doi: "10.1155/2011/879716"
+    notes: "Brainstorm: band-pass filters, region values, the ICBM152 head"
+  - type: article
+    authors:
+      - family-names: "Gramfort"
+        given-names: "Alexandre"
+      - family-names: "Papadopoulo"
+        given-names: "Théodore"
+      - family-names: "Olivi"
+        given-names: "Emmanuel"
+      - family-names: "Clerc"
+        given-names: "Maureen"
+    title: "OpenMEEG: opensource software for quasistatic bioelectromagnetics"
+    journal: "BioMedical Engineering OnLine"
+    year: 2010
+    volume: 9
+    start: "45"
+    doi: "10.1186/1475-925X-9-45"
+    notes: "OpenMEEG: the leadfields"
+  - type: article
+    authors:
+      - family-names: "Rubinov"
+        given-names: "Mikail"
+      - family-names: "Sporns"
+        given-names: "Olaf"
+    title: "Complex network measures of brain connectivity: uses and interpretations"
+    journal: "NeuroImage"
+    year: 2010
+    volume: 52
+    start: "1059"
+    end: "1069"
+    doi: "10.1016/j.neuroimage.2009.10.003"
+    notes: "Brain Connectivity Toolbox: the definitions of the graph metrics"
+  - type: article
+    authors:
+      - family-names: "Zalesky"
+        given-names: "Andrew"
+      - family-names: "Fornito"
+        given-names: "Alex"
+      - family-names: "Bullmore"
+        given-names: "Edward T"
+    title: "Network-based statistic: identifying differences in brain networks"
+    journal: "NeuroImage"
+    year: 2010
+    volume: 53
+    start: "1197"
+    end: "1207"
+    doi: "10.1016/j.neuroimage.2010.06.041"
+    notes: "NBS: network-based statistic"
+  - type: article
+    authors:
+      - family-names: "Corcoran"
+        given-names: "Andrew W"
+      - family-names: "Alday"
+        given-names: "Phillip M"
+      - family-names: "Schlesewsky"
+        given-names: "Matthias"
+      - family-names: "Bornkessel-Schlesewsky"
+        given-names: "Ina"
+    title: "Toward a reliable, automated method of individual alpha frequency (IAF) quantification"
+    journal: "Psychophysiology"
+    year: 2018
+    volume: 55
+    start: "e13064"
+    doi: "10.1111/psyp.13064"
+    notes: "restingIAF: individual alpha frequency"
+  - type: article
+    authors:
+      - family-names: "Colclough"
+        given-names: "G L"
+      - family-names: "Brookes"
+        given-names: "M J"
+      - family-names: "Smith"
+        given-names: "S M"
+      - family-names: "Woolrich"
+        given-names: "M W"
+    title: "A symmetric multivariate leakage correction for MEG connectomes"
+    journal: "NeuroImage"
+    year: 2015
+    volume: 117
+    start: "439"
+    end: "448"
+    doi: "10.1016/j.neuroimage.2015.03.071"
+    notes: "ROInets: symmetric orthogonalisation"
